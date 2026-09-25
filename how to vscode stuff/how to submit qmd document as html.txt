@@ -1,0 +1,5 @@
+WITHIN VS CODE:
+1. open a new Powershell terminal
+2. enter: quarto render
+3. from lefthand vscode Explorer, drag the .qmb file into terminal (this pastes the file reference)
+4. enter, and you should now have the html in your workspace folder.

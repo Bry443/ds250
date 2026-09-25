@@ -1,0 +1,68 @@
+---
+title: "Course Goals Letter (Mid)"
+subtitle: "Week 1"
+author: "Brycen Taylor"
+format:
+  html:
+    self-contained: true
+    page-layout: full
+    title-block-banner: true
+    toc: true
+    toc-depth: 3
+    toc-location: body
+    number-sections: false
+    html-math-method: katex
+execute: 
+  warning: false
+    
+---
+
+# Select Your Target Grade Competency
+
+> **Instructions:** Review the grading tier tables below. Pick the table that best fits the effort you can give for the course. You may change this at any point throughout the semester.
+> 
+
+**Note:** Tasks are pass/fail. You will only receive credit for a task that is completed fully. You are allowed resubmissions. 
+
+## Grading Tiers
+
+### A Tier: Leader
+
+**Where I need to be by Week 14:**
+
+|        | Grade | Tasks (18 Total) | Stretch Tasks (5) | DS Community Tasks | Methods & Calculation Quizzes @ 100% | Coding Challenge | Course Goal Letter (End) |
+|:-------|:-----:|:----------------:|:-----------------:|:------------------:|:------------------------------------:|:----------------:|:------------------------:|
+| Leader |   A   |      17–18       |       >= 3        | >= 3 (incl. Cert)  |                  6                   |       >= 3       |            1             |
+
+---
+
+### B Tier: Supporter
+
+**Where I need to be by Week 14:**
+
+|           | Grade | Tasks (18 Total) | Stretch Tasks (5) | DS Community Tasks | Methods & Calculation Quizzes @ 100% | Coding Challenge | Course Goal Letter (End) |
+|:----------|:-----:|:----------------:|:-----------------:|:------------------:|:------------------------------------:|:----------------:|:------------------------:|
+| Supporter |   B   |      15–16       |       >= 2        | >= 2 (incl. Cert)  |                  5                   |       >= 3       |            1             |
+
+---
+
+### C Tier: Listener
+
+**Where I need to be by Week 14:**
+
+|          | Grade | Tasks (18 Total) | Stretch Tasks (5) | DS Community Tasks | Methods & Calculation Quizzes @ 100% | Coding Challenge | Course Goal Letter (End) |
+|:---------|:-----:|:----------------:|:-----------------:|:------------------:|:------------------------------------:|:----------------:|:------------------------:|
+| Listener |   C   |      13–14       |       >= 1        |        >= 1        |                  3                   |       >= 2       |            1             |
+
+---
+
+## My Letter
+
+
+My Goal this semester is to achieve tier A.
+
+|        | Grade | Tasks (18 Total) | Stretch Tasks (5) | DS Community Tasks | Methods & Calculation Quizzes @ 100% | Coding Challenge | Course Goal Letter (End) |
+|:-------|:-----:|:----------------:|:-----------------:|:------------------:|:------------------------------------:|:----------------:|:------------------------:|
+| Leader |   A   |      17–18       |       >= 3        | >= 3 (incl. Cert)  |                  6                   |       >= 3       |            1             |
+
+I plan on achieving this goal by consecutively finishing assignments before the due date. This tactic will prevent both procrastination and a rushed work environment caused by said problem. When I get to a problem I do not understand, I will research the class documentation or approved AI usage. This will help me keep gain a full understanding of the current concept before moving on.
