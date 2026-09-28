@@ -1,0 +1,135 @@
+---
+title: "Client Report - Exploring Names"
+subtitle: "Unit 1 Task 1"
+author: "Brycen Taylor"
+format:
+  html:
+    self-contained: true
+    page-layout: full
+    embed-resources: true
+    title-block-banner: true
+    toc: true
+    toc-depth: 3
+    toc-location: body
+    number-sections: false
+    html-math-method: katex
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-copy: hover
+    code-tools:
+        source: false
+        toggle: true
+        caption: See code
+execute: 
+  warning: false
+    
+---
+
+```{python}
+import polars as pl
+import numpy as np
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+```{python}
+# Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
+import ssl
+
+# I added this to ypass the certificate verification error
+ssl._create_default_https_context = ssl._create_unverified_context
+
+
+# Include and execute your code here
+df = pl.read_csv("https://posit.byui.edu/content/0d43d66f-d3b7-4c43-8c36-52e3ed69e7f1/names_year_csv.csv")
+```
+
+## QUESTION 1
+
+__What was the earliest year that the name ‘Felisha’ was used?__
+1964
+
+_type your results and analysis here_
+The earliest case of Felisha I could find was in the year 1964. I was able to find this by creating an expression that takes in the dataset 'df' and grabs only collumn names with the text "felisha". After that I can select the years of these names and search for only the minimum value.
+
+_AI use reflection_
+**Link** to the original chat:
+**The Process** How exactly did you use the tool?
+**The Impact**  How did using AI impact your learning?
+
+```{python}
+# Q1
+# gets all cases of felisha
+# df.filter(pl.col("name").str.to_lowercase() == "felisha").select("name", "year", "Total").sort("year")
+
+
+# specify with select year and search for min()
+df.filter(pl.col("name").str.to_lowercase() == "felisha").select(pl.col("name","year").min())
+```
+
+
+## QUESTION 2
+
+__What year had the most babies named 'David'? How many babies were named 'David' that year?__
+2024 with 86,389 babies.
+
+_type your results and analysis here_
+I found that 2024 has the most babies named David with a wopping amount of 86389. My retrieval for this data was much like the previous question. I started off by selecting only columns with the names "david". From here I selected only the name, year, and total. With a big list of david entiries left, I could simply sort by total's maximum to be left with the entry with most babies named David.
+
+_AI use reflection_
+**Link** to the original chat:
+**The Process** How exactly did you use the tool?
+**The Impact**  How did using AI impact your learning?
+
+```{python}
+# Q2
+df.filter(pl.col("name").str.to_lowercase() == "david").select("name", "year", "Total").sort("Total").max()
+
+```
+
+
+## QUESTION 3
+
+__What year did your name hit its peak? How many babies were named your name in that year?__
+2024 was the most popular year for Brycen with 969 babies.
+
+_type your results and analysis here_
+2024 had the greatest amount of babies named Brycen with a total of 969. I found this by filtering for names of "brycen", then selecting to retrieve name, year, and total, I sorted by total looking for the maximum value. 
+
+_AI use reflection_
+**Link** to the original chat:
+**The Process** How exactly did you use the tool?
+**The Impact**  How did using AI impact your learning?
+
+```{python}
+# Q3
+df.filter(pl.col("name").str.to_lowercase() == "brycen").select("name", "year", "Total").sort("Total").max()
+```
+
+
+## QUESTION 4
+
+__In the most recent year, what was the most common female name in Utah?__ 
+The most common female name I found in Utah from the latest year (2024) is "Olivia". 
+
+_type your results and analysis here_
+I started by filtering only the latest years (2024) entries, then I sort the UT counts in descending order and keep only the 10 highest UT amounts. I now havea  list of the 10 most common names in Utah of 2024. From here, I present the list and find the first most common name that is typically female. "Olivia" was tied for the 5th entry. Without a link to "names_prob" cvs file, I however can't gurantee Olivia is a female name without my own speculation.
+
+_AI use reflection_
+**Link** to the original chat:
+**The Process** How exactly did you use the tool?
+**The Impact**  How did using AI impact your learning?
+
+```{python}
+# Q5
+# using regular sort
+df.filter(pl.col("year") == df["year"].max()).sort("UT", descending=True).head(10).select("name", "year", "UT")
+
+# using k_sort
+# df.filter(pl.col("year") == df["year"].max()).top_k(k=10, by="UT").head(10).select("name", "year", "UT")
+```
+
+
+---

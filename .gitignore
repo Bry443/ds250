@@ -1,2 +1,6 @@
 /.quarto/
 **/*.quarto_ipynb
+Code/
+books/
+how to vscode stuff/
+python testing/
