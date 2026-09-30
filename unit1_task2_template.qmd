@@ -1,0 +1,140 @@
+---
+title: "Client Report - What's in a Name?"
+subtitle: "Unit 1 Task 2"
+author: "Brycen Taylor"
+format:
+  html:
+    self-contained: true
+    page-layout: full
+    title-block-banner: true
+    toc: true
+    toc-depth: 3
+    toc-location: body
+    number-sections: false
+    html-math-method: katex
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-copy: hover
+    code-tools:
+        source: false
+        toggle: true
+        caption: See code
+execute: 
+  warning: false
+    
+---
+
+```{python}
+import polars as pl
+import numpy as np
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+```{python}
+# Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
+import ssl
+
+# I added this to ypass the certificate verification error
+ssl._create_default_https_context = ssl._create_unverified_context
+
+# Include and execute your code here
+df = pl.read_csv("https://posit.byui.edu/content/0d43d66f-d3b7-4c43-8c36-52e3ed69e7f1/names_year_csv.csv")
+```
+
+## QUESTION 1
+
+<!-- Make sure at least one of your charts includes reference marks!! -->
+
+__How does your name at your birth year compare to its use historically? Your must provide a chart. The years labels on your charts should not include a comma.__ 
+
+_type your results and analysis here_
+My name, "Brycen" has a accelerating climb in use from the 1990's until around 2011, where it begins do actually decrease in usage. The name is not very common.. Historically my name was barely ever used, and even today the name is fairly uncommon.
+
+_AI use reflection_
+**Link** to the original chat:
+**The Process** How exactly did you use the tool?
+**The Impact**  How did using AI impact your learning?
+
+```{python}
+# Q1
+(
+    ggplot(df.filter(pl.col("name").str.to_lowercase() == "brycen"), aes(x="year", y="Total"))
+    + scale_x_continuous(format="d")
+    + geom_point()
+    + geom_vline(xintercept=2002, color="red")
+    + geom_smooth(method="loess", span=0.3)
+    + labs(
+        title="Name Usage in Newborns",
+        subtitle="Historical usage of Brycen",
+        x="Year",
+        y="Total"
+    )
+)
+```
+
+
+## QUESTION 2
+
+__Think of a unique name from a famous movie. Plot the usage of that name and see how changes line up with the movie release. Does it look like the movie had an effect on usage?__  
+
+
+_type your results and analysis here_
+I chose the name "Harry" thinking that the Harry Potter series would have a positive effect on the name's usage. Suprisingly, in 2001 and the years that followed, the name usage continued to follow a decreasing trend it was already on. It appears the books and movies had little to no effect on usage.
+
+_AI use reflection_
+**Link** to the original chat:
+**The Process** How exactly did you use the tool?
+**The Impact**  How did using AI impact your learning?
+
+```{python}
+# Q2
+(
+    ggplot(df.filter(pl.col("name").str.to_lowercase() == "harry"), aes(x="year", y="Total"))
+    + scale_x_continuous(format="d")
+    + geom_point()
+    + geom_vline(xintercept=2001, color="red")
+    + geom_smooth(method="loess", span=0.3)
+    + labs(
+        title="Name Usage in Newborns",
+        subtitle="Historical usage of Harry",
+        x="Year",
+        y="Total"
+    )
+)
+
+```
+
+## QUESTION 3
+
+__Mary, Martha, Peter, and Paul are all Christian names. From 1920 - 2000, compare the name usage of each of the four names in a single chart. What trends do you notice?__  
+
+_type your results and analysis here_
+All of the 4 names start a gradual decline from the 70s into the 2000s. Mary in the past was extremely popular, but saw a sharp decline from the 50s to the 70s. Paul and Peter have very similar trends, but Paul seems to be always more popular than Peter until nearing the same popularity by the 2000s. Martha was never a very popular option out of the 4, only peaking between the 40's and 50's and was soon was overtaken in usage by Peter.
+
+_AI use reflection_
+**Link** to the original chat:
+**The Process** How exactly did you use the tool?
+**The Impact**  How did using AI impact your learning?
+
+```{python}
+# Q3
+filtered_df = df.filter(pl.col("name").is_in(["Mary", "Martha", "Peter", "Paul"])).filter(pl.col("year").is_between(1920, 2000))
+(
+    ggplot(filtered_df, aes(x="year", y="Total"))
+    + scale_x_continuous(format="d")
+    + geom_point(aes(color="name", shape="name"))
+    + labs(
+        title="Name Usage in Newborns",
+        subtitle="Historical usage of the names: Mary, Martha, Peter, and Paul",
+        x="Year",
+        y="Total",
+        color="name",
+        shape="name",
+    )
+)
+
+```
+<!-- Make sure at least one of your charts includes reference marks!! -->
