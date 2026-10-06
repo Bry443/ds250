@@ -37,7 +37,7 @@ LetsPlot.setup_html(isolated_frame=True)
 # Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
 import ssl
 
-# I added this to ypass the certificate verification error
+# I added this to bypass the certificate verification error
 ssl._create_default_https_context = ssl._create_unverified_context
 
 # Include and execute your code here
