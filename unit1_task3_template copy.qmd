@@ -1,0 +1,156 @@
+---
+title: "Client Report - Famous Names"
+subtitle: "Unit 1 Task 3"
+author: "Brycen Taylor"
+format:
+  html:
+    self-contained: true
+    page-layout: full
+    title-block-banner: true
+    toc: true
+    toc-depth: 3
+    toc-location: body
+    number-sections: false
+    html-math-method: katex
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-copy: hover
+    code-tools:
+        source: false
+        toggle: true
+        caption: See code
+execute: 
+  warning: false
+    
+---
+
+```{python}
+import polars as pl
+import numpy as np
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+```{python}
+# Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
+import ssl
+
+# I added this to bypass the certificate verification error
+ssl._create_default_https_context = ssl._create_unverified_context
+
+# Include and execute your code here
+df = pl.read_csv("https://posit.byui.edu/content/0d43d66f-d3b7-4c43-8c36-52e3ed69e7f1/names_year_csv.csv")
+```
+
+
+
+## QUESTION 1
+
+<!-- Make sure at least one of your charts includes reference marks!! -->
+
+__Make a new column that represents the total number of babies with your name for only those states in which you have lived. (If you have only ever lived in one state, pick at least one other state so you get practice summing across columns). Make a graph displaying that total for your name over time.__
+
+_type your results and analysis here_
+My name is Very rare to find in all othe three states I have lived in, Arizona, Oklahoma, and Idaho. With this graph we can see the total number of babies given the name Brycen across all three states. The highest number of babies given that name peaks at around 2011. By the ending years of the data, the trend of Brycen over time is decreasing.
+
+_AI use reflection_
+**Link** to the original chat:
+**The Process** How exactly did you use the tool?
+**The Impact**  How did using AI impact your learning?
+
+```{python}
+# Q1
+
+
+total_df = df.with_columns(
+  Total_Brycen_Lived_In=pl.when(pl.col("name").str.to_lowercase() == "brycen").then(pl.col("AZ") + pl.col("OK") + pl.col("ID")).otherwise(0)
+)
+
+max_total = total_df["Total_Brycen_Lived_In"].max()
+(
+    ggplot(total_df.filter(pl.col("name").str.to_lowercase() == "brycen"), aes(x="year", y="Total_Brycen_Lived_In"))
+    + scale_x_continuous(format="d")
+    + geom_point()
+    + geom_vline(xintercept=2002, color="red")
+    + geom_text(x=2002, y=max_total, label="I was born")
+    + geom_smooth(method="loess", span=0.3)
+    + labs(
+        title="Name Usage in Newborns",
+        subtitle="Historical usage of Brycen",
+        x="Year",
+        y="Total"
+    )
+)
+
+```
+
+
+## QUESTION 2
+
+1. __Let's look at a name that is special for members of the church: Brigham. For each year, calculate what proportion of babies named Brigham were born in Idaho and Utah? Make a graph displaying the proportion over time.__  
+
+_type your results and analysis here_
+From my graph, I could see that the name of babies named Brigham was 100% babies born in Idaho and Utah up until 1987. After some time of no babies named Brigham, miraculously, 100% of babies named Brigham born in 1992 were entirely outside of these states. In the brief following years, it continued the previous ternd of 100% babies named Brigham being born in Idaho and Utah. However, around the 2000s, the percent of babies named Brigham being born in Idaho and Utah begins following a gradual downward trend to the latest year.
+
+_AI use reflection_
+**Link** to the original chat:
+**The Process** How exactly did you use the tool?
+**The Impact**  How did using AI impact your learning?
+
+```{python}
+# Q2
+brigham_df = df.with_columns(
+  Proportion_Brigham_ID_UT=pl.when(pl.col("name").str.to_lowercase() == "brigham").then(((pl.col("ID") + pl.col("UT")) / pl.col("Total")) * 100).otherwise(0)
+)
+
+(
+    ggplot(brigham_df.filter(pl.col("name").str.to_lowercase() == "brigham"), aes(x="year", y="Proportion_Brigham_ID_UT"))
+    + scale_x_continuous(format="d")
+    + geom_point()
+    + geom_line()
+    + labs(
+        title="Name Usage in Newborns",
+        subtitle="Brigham Names in Idaho and Utah vs Total",
+        x="Year",
+        y="Percent of Brighams in Idaho & Utah"
+    )
+)
+```
+
+<!-- Make sure at least one of your charts includes reference marks!! -->
+
+## QUESTION 3
+
+1. __Consider doing some data validation. For the name David, calculate a sum of all 50 states and District of Columbia for each year. Now compare that total to the value in the 'Total' column. In which years, if any, do they not agree?__
+
+_type your results and analysis here_
+From my validation, I found that every entry correctly found the total sum as in the "Total" column. My summations came to the same conclusion for each year.
+
+_AI use reflection_
+**Link** to the original chat:
+**The Process** How exactly did you use the tool?
+**The Impact**  How did using AI impact your learning?
+
+```{python}
+# Q3
+#import polars.selectors as cs
+#all_states = df.select(cs.by_index(range(3, 52)))
+
+#just_states = df.filter(pl.col("name").str.to_lowercase() == "david").select(pl.col(df.columns[2:-1]))
+#just_states
+
+state_total_df = df.with_columns(
+    pl.sum_horizontal(df.columns[2:-1]).alias("All_States")
+)
+state_total_df.filter(pl.col("name").str.to_lowercase() == "david").select("name", "year", "Total", "All_States").filter(pl.col("All_States") != pl.col("Total"))
+```
+
+```{python}
+# testing
+import polars.selectors as cs
+state_columns = cs.numeric().exclude(["year", "Total"])
+
+state_total_df = df.with_columns(pl.sum_horizontal(state_columns).alias("All_States"))
+```

@@ -1,0 +1,74 @@
+---
+title: "Client Request - Elliot"
+subtitle: "Unit 1 Stretch Task: Elliot"
+author: "Brycen Taylor"
+format:
+  html:
+    self-contained: true
+    page-layout: full
+    embed-resources: true
+    title-block-banner: true
+    toc: true
+    toc-depth: 3
+    toc-location: body
+    number-sections: false
+    html-math-method: katex
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-copy: hover
+    code-tools:
+        source: false
+        toggle: true
+        caption: See code
+execute: 
+  warning: false
+    
+---
+
+```{python}
+import polars as pl
+import numpy as np
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+```{python}
+# Bypass the certificate verification error
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
+# set DataFrame
+df = pl.read_csv("https://posit.byui.edu/content/0d43d66f-d3b7-4c43-8c36-52e3ed69e7f1/names_year_csv.csv")
+```
+
+## Stretch Questions
+
+__Reproduce the chart Elliot using the data from the names_year.csv file. If, after a couple of hours, you can get the chart close, but not exactly the same, that is okay. You will learn more to the degree you push yourself.__
+
+```{python}
+elliot_over_time = df.filter((pl.col("name").str.to_lowercase() == "elliot") & (pl.col("year") >= 1950))
+
+max_total = elliot_over_time["Total"].max()
+(
+    ggplot(elliot_over_time, aes(x="year", y="Total", color="name"))
+    + scale_x_continuous(breaks=[1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020], format="d")
+    + geom_vline(xintercept=1982, color="red", linetype="dashed")
+    + geom_text(x=1981.5, y=max_total, color="grey", label="E.T. Released", hjust=1,size=5)
+    + geom_vline(xintercept=1985, color="red", linetype="dashed")
+    + geom_text(x=1985.5, y=max_total, color="grey", label="Second Release", hjust=0,size=5)
+    + geom_vline(xintercept=2002, color="red", linetype="dashed")
+    + geom_text(x=2002.5, y=max_total, color="grey", label="Third Release", hjust=0,size=5)
+    + geom_line()
+    + scale_color_manual(
+        values={"Elliot": "blue"},
+        name="Name"
+    )
+    + labs(
+        title="Elliot...What?",
+        x="Year",
+        y=""
+    )
+)
+```
