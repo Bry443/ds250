@@ -2261,7 +2261,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
   <li><a href="#question-3" id="toc-question-3">QUESTION 3</a></li>
   </ul>
 </nav>
-<div id="01ff16ad" class="cell" data-execution_count="1">
+<div id="d40085c1" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl</span>
@@ -2273,7 +2273,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>LetsPlot.setup_html(isolated_frame<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="7942c6f0" class="cell" data-execution_count="2">
+<div id="85f93d60" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html</span></span>
@@ -2289,7 +2289,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <p><strong>Calculate the sample size (i.e. number of rows in the dataset) for each airport in each year</strong>. What do you notice?</p>
 <p><em>Describe your results and analysis here</em> From my analysis, I found that Atlanta in the year ‘null’ had the largest sample size, having 23 rows. A stark comparison to all the entries in second place only having 12 rows. Denver airport consecutively had a sample size of 12 every year while amounts from other airports such as Atlanta fluctuated between years.</p>
 <p><em>AI use reflection</em> <strong>Link</strong> to the original chat: <strong>The Process</strong> How exactly did you use the tool? <strong>The Impact</strong> How did using AI impact your learning?</p>
-<div id="e5fc67ca" class="cell" data-execution_count="3">
+<div id="bb09beff" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>
@@ -2389,7 +2389,7 @@ white-space: pre-wrap;
 <p><strong>Which airport has the worst delays?</strong> Describe the metric you chose, and why you chose it to determine the “worst” airport. Your answer should include a summary table that lists (for each airport) the total number of flights, total number of delayed flights, proportion of delayed flights, and average delay time in hours.</p>
 <p><em>Describe your results and analysis here</em> The two metrics I calculated (per airport code) were to find the worst airport was first, percentage of delayed flights out of total, and second, and the average delay time (in hours) if a flight is delayed. From my calculations, the two worst airports were San Francisco and Chicago. On average, San Fransisco airport had the highest percent of delays while tying for 2nd with the highest average delay time (when rounded). Chicago was the second most likely to have delayed flights but is most likely to have the longest delay time. If I had to choose one airport as the worst, It would be San Francisco narrowly situated ahead of Chicago.</p>
 <p><em>AI use reflection</em> <strong>Link</strong> to the original chat: <strong>The Process</strong> How exactly did you use the tool? <strong>The Impact</strong> How did using AI impact your learning?</p>
-<div id="bba73e93" class="cell" data-execution_count="4">
+<div id="299dbc31" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>
@@ -2466,22 +2466,25 @@ white-space: pre-wrap;
 <section id="question-3" class="level2">
 <h2 class="anchored" data-anchor-id="question-3">QUESTION 3</h2>
 <p><strong>Create a barplot showing the proportion of all flights that are delayed at each airport. Describe what you learn from this graph.</strong></p>
-<p><em>Describe your results and analysis here</em></p>
+<p><em>Describe your results and analysis here</em> The barplot compares the differences between the percentage of delays across the different airports. It’s easy to see which airport has the highest percent of delays but you don’t see if an airport has more total flights than another which broadens your perspective of this flight delay data. From this graph, it’s clear to see that Salt Lake City has the lowest percent of delays in comparison to the other airports.</p>
 <p><em>AI use reflection</em> <strong>Link</strong> to the original chat: <strong>The Process</strong> How exactly did you use the tool? <strong>The Impact</strong> How did using AI impact your learning?</p>
-<div id="ee56fc36" class="cell" data-execution_count="5">
+<div id="8f5fbb2e" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    ggplot(df_delays, aes(x<span class="op">=</span><span class="st">&quot;airport_code&quot;</span>, y<span class="op">=</span><span class="st">&quot;percent_delayed&quot;</span>))</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_bar(stat<span class="op">=</span><span class="st">&quot;identity&quot;</span>, fill<span class="op">=</span><span class="st">&quot;#4472C4&quot;</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> labs(</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="st">&quot;Weather Delays&quot;</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        subtitle<span class="op">=</span><span class="st">&quot;Weather Delays in Flights by Season&quot;</span>,</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">&quot;Seasons&quot;</span>,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">&quot;Total delays (in 1,000&#39;s)&quot;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># make it look pretty by sorting</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df_delays_sorted <span class="op">=</span> df_delays.sort(<span class="st">&quot;percent_delayed&quot;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    ggplot(df_delays_sorted, aes(x<span class="op">=</span><span class="st">&quot;airport_code&quot;</span>, y<span class="op">=</span><span class="st">&quot;percent_delayed&quot;</span>))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_bar(stat<span class="op">=</span><span class="st">&quot;identity&quot;</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> labs(</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="st">&quot;Flight Delays&quot;</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        subtitle<span class="op">=</span><span class="st">&quot;Flight Delays by Airport&quot;</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">&quot;Airport Code&quot;</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">&quot;Percentage of delays&quot;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="5">
 
@@ -2493,7 +2496,7 @@ white-space: pre-wrap;
 //# sourceMappingURL=lets-plot.js.map</script>
    
    
-          <div id="pv1yB6"></div>
+          <div id="fe6Hx2"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
@@ -2518,15 +2521,15 @@ white-space: pre-wrap;
        };
    }
    
-   const containerDiv = document.getElementById("pv1yB6");
+   const containerDiv = document.getElementById("fe6Hx2");
    let fig = null;
    
    function renderPlot() {
        if (fig === null) {
            const plotSpec = {
 "data":{
-"airport_code":["IAD","SLC","ORD","ATL","SAN","DEN","SFO"],
-"percent_delayed":[19.8,14.6,23.1,20.4,19.1,18.6,26.1]
+"airport_code":["SLC","DEN","SAN","IAD","ATL","ORD","SFO"],
+"percent_delayed":[14.6,18.6,19.1,19.8,20.4,23.1,26.1]
 },
 "mapping":{
 "x":"airport_code",
@@ -2554,15 +2557,15 @@ white-space: pre-wrap;
 }]
 },
 "ggtitle":{
-"text":"Weather Delays",
-"subtitle":"Weather Delays in Flights by Season"
+"text":"Flight Delays",
+"subtitle":"Flight Delays by Airport"
 },
 "guides":{
 "x":{
-"title":"Seasons"
+"title":"Airport Code"
 },
 "y":{
-"title":"Total delays (in 1,000's)"
+"title":"Percentage of delays"
 }
 },
 "kind":"plot",
@@ -2574,7 +2577,6 @@ white-space: pre-wrap;
 },
 "data_meta":{
 },
-"fill":"#4472C4",
 "data":{
 }
 }],
