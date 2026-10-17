@@ -1,0 +1,124 @@
+---
+title: "Client Report - Flights: Column Aggregation"
+subtitle: "Unit 2 Task 2"
+author: "Brycen Taylor"
+format:
+  html:
+    self-contained: true
+    page-layout: full
+    title-block-banner: true
+    toc: true
+    toc-depth: 3
+    toc-location: body
+    number-sections: false
+    html-math-method: katex
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-copy: hover
+    code-tools:
+        source: false
+        toggle: true
+        caption: See code
+execute: 
+  warning: false
+    
+---
+
+```{python}
+import polars as pl
+import requests #new for reading in JSON
+import io       #new for reading in JSON
+import numpy as np
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+
+```{python}
+# Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
+
+# Include and execute your code here
+url = "https://raw.githubusercontent.com/byuidatascience/data4missing/master/data-raw/flights_missing/flights_missing.json"
+response = requests.get(url)
+df = pl.read_json(io.BytesIO(response.content))
+```
+
+
+## QUESTION 1
+
+__Calculate the sample size (i.e. number of rows in the dataset) for each airport in each year__. What do you notice?
+
+_Describe your results and analysis here_
+From my analysis, I found that Atlanta in the year 'null' had the largest sample size, having 23 rows. A stark comparison to all the entries in second place only having 12 rows. Denver airport consecutively had a sample size of 12 every year while amounts from other airports such as Atlanta fluctuated between years.
+
+_AI use reflection_
+**Link** to the original chat:
+**The Process** How exactly did you use the tool?
+**The Impact**  How did using AI impact your learning?
+
+```{python}
+# Include and execute your code here
+#.agg(pl.count()).sort(['airport', 'year'])
+df_grouped = df.group_by(["airport_code", "year"]).agg(pl.count().alias("sample_size")).sort(["airport_code", "year"])
+
+df_grouped.select(pl.col("airport_code","year", "sample_size")).sort("sample_size", descending=True)
+
+# df_grouped.filter(pl.col("airport_code") == "DEN").select(pl.col("airport_code","year", "sample_size")).sort("sample_size", descending=False)
+```
+
+## QUESTION 2
+
+__Which airport has the worst delays?__ Describe the metric you chose, and why you chose it to determine the “worst” airport. Your answer should include a summary table that lists (for each airport) the total number of flights, total number of delayed flights, proportion of delayed flights, and average delay time in hours. 
+
+_Describe your results and analysis here_
+The two metrics I calculated (per airport code) were to find the worst airport was first, percentage of delayed flights out of total, and second, and the average delay time (in hours) if a flight is delayed. 
+From my calculations, the two worst airports were San Francisco and Chicago. On average, San Fransisco airport had the highest percent of delays while tying for 2nd with the highest average delay time (when rounded). Chicago was the second most likely to have delayed flights but is most likely to have the longest delay time.
+If I had to choose one airport as the worst, It would be San Francisco narrowly situated ahead of  Chicago.
+
+_AI use reflection_
+**Link** to the original chat:
+**The Process** How exactly did you use the tool?
+**The Impact**  How did using AI impact your learning?
+
+```{python}
+# Include and execute your code here
+df_delays = df.group_by("airport_code").agg(pl.col("num_of_delays_total").sum().alias("total_delays"),
+pl.col("num_of_flights_total").sum().alias("total_flights"),
+pl.col("minutes_delayed_total").sum().alias("total_minutes_delayed")).with_columns((pl.col("total_delays") / pl.col("total_flights") * 100).round(1).alias("percent_delayed"),(pl.col("total_minutes_delayed") / pl.col("total_delays") / 60).round(1).alias("average_delay_hours"))
+
+df_delays.select(pl.col("airport_code", "percent_delayed", "average_delay_hours")).sort("percent_delayed", descending=True)
+
+```
+
+## QUESTION 3
+
+__Create a barplot showing the proportion of all flights that are delayed at each airport. Describe what you learn from this graph.__  
+
+_Describe your results and analysis here_
+The barplot compares the differences between the percentage of delays across the different airports. It's easy to see which airport has the highest percent of delays but you don't see if an airport has more total flights than another which broadens your perspective of this flight delay data. From this graph, it's clear to see that Salt Lake City has the lowest percent of delays in comparison to the other airports.
+
+_AI use reflection_
+**Link** to the original chat:
+**The Process** How exactly did you use the tool?
+**The Impact**  How did using AI impact your learning?
+
+```{python}
+# Include and execute your code here
+# make it look pretty by sorting
+df_delays_sorted = df_delays.sort("percent_delayed")
+
+(
+    ggplot(df_delays_sorted, aes(x="airport_code", y="percent_delayed"))
+    + geom_bar(stat="identity")
+    + labs(
+        title="Flight Delays",
+        subtitle="Flight Delays by Airport",
+        x="Airport Code",
+        y="Percentage of delays"
+    )
+)
+
+
+```
